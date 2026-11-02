@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email signature media</title>
+  <style>
+    :root { color-scheme: light dark; font: 16px/1.5 system-ui, sans-serif; }
+    body { max-width: 760px; margin: 3rem auto; padding: 0 1rem; }
+    img, video { display: block; max-width: 100%; height: auto; }
+    .hint { color: #777; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1></h1>
+    <p id="message" class="hint">Add a GIF to <code>media/signature.gif</code>, or set a hosted media URL in this page.</p>
+    <img id="gif" alt="" hidden>
+    <video id="video" controls playsinline hidden></video>
+  </main>
+  <script>
+    // For large files, paste a public Vercel Blob or other media URL here.
+    const hostedMediaUrl = "";
+    const localGif = "media/signature.gif";
+    const localMp4 = "media/signature.mp4";
+    const gif = document.querySelector("#gif");
+    const video = document.querySelector("#video");
+    const message = document.querySelector("#message");
+    const url = hostedMediaUrl.trim();
+    const isMp4 = value => /\.mp4(?:$|\?)/i.test(value);
+
+    function showVideo(source) {
+      video.src = source;
+      video.hidden = false;
+      message.hidden = true;
+    }
+    function showGif(source, fallback) {
+      gif.onerror = () => {
+        gif.onerror = null;
+        if (fallback) showVideo(fallback);
+      };
+      gif.onload = () => { message.hidden = true; gif.hidden = false; };
+      gif.src = source;
+    }
+
+    if (url && isMp4(url)) showVideo(url);
+    else showGif(url || localGif, url ? "" : localMp4);
+  </script>
+</body>
+</html>
