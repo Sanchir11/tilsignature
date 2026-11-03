@@ -20,9 +20,9 @@ if [[ -e "$output" ]]; then
   exit 1
 fi
 
-echo "Creating an 8-second, 8 fps, 480 px wide GIF from media/signature.mp4..."
+echo "Creating an 8-second, 8 fps, 320 px wide GIF from media/signature.mp4..."
 ffmpeg -hide_banner -i "$input" -t 8 \
-  -filter_complex '[0:v]fps=8,scale=480:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=3' \
+  -filter_complex '[0:v]fps=8,scale=320:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=3' \
   -loop 0 "$output"
 
 size_bytes="$(wc -c < "$output" | tr -d '[:space:]')"
