@@ -2,7 +2,15 @@
 
 A tiny static site for hosting a signature GIF or a page that links to a video. Open this folder in Cursor.
 
-## Add your media
+## Create the signature GIF from an MP4
+
+1. Put the source video at `media/signature.mp4` (that is where the current MP4 already is). The conversion script reads it and leaves it untouched.
+2. Install FFmpeg once if needed: `brew install ffmpeg`.
+3. From this project folder, run: `./scripts/make-signature-gif.sh`.
+4. The script creates `media/signature.gif`, using the first 8 seconds at 8 fps and 480 px wide. If a GIF already exists, move or delete it before rerunning so you do not replace it accidentally.
+5. `index.html` previews that file, and the deployed signature URL is `https://tilsignature-c3hp.vercel.app/media/signature.gif` (path: `/media/signature.gif`).
+
+The original `media/signature.mp4` is not changed. The generated GIF is not added to Git automatically. Check its size with `ls -lh media/signature.gif` before deciding whether to deploy it. GitHub rejects an individual Git file above 100 MiB; Vercel's current static upload limit is 100 MB on Hobby and 1 GB on Pro. A GIF over the applicable limit needs shorter/lower-resolution settings or external media hosting.
 
 - Small GIF: copy it to `media/signature.gif`.
 - Small MP4: copy it to `media/signature.mp4`.

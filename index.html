@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Email signature media</title>
+  <title>TILOGISTIC</title>
   <style>
     :root { color-scheme: light dark; font: 16px/1.5 system-ui, sans-serif; }
     body { max-width: 760px; margin: 3rem auto; padding: 0 1rem; }
     img, video { display: block; max-width: 100%; height: auto; }
     .hint { color: #777; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
@@ -19,7 +20,7 @@
     <video id="video" controls playsinline hidden></video>
   </main>
   <script>
-    // For large files, paste a public Vercel Blob or other media URL here.
+    // For large files, paste a public Vercels Blob or other media URL here.
     const hostedMediaUrl = "";
     const localGif = "media/signature.gif";
     const localMp4 = "media/signature.mp4";
@@ -30,11 +31,14 @@
     const isMp4 = value => /\.mp4(?:$|\?)/i.test(value);
 
     function showVideo(source) {
+      gif.hidden = true;
       video.src = source;
       video.hidden = false;
       message.hidden = true;
     }
     function showGif(source, fallback) {
+      video.hidden = true;
+      gif.hidden = true;
       gif.onerror = () => {
         gif.onerror = null;
         if (fallback) showVideo(fallback);
